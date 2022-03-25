@@ -10,18 +10,18 @@
   font-style: normal;
   font-weight: 200;
   font-display: swap;
-  src: url(/css/fonts/367685b2ca6303dc3853.woff2) format("woff2");
+  src: url(https://github.com/z9fr/obsidian-mkdocs-theme/raw/master/basic_theme/css/fonts/367685b2ca6303dc3853.woff2) format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url(/css/fonts/746a677fc34469759ede.woff2) format("woff2");
+  src: url(https://github.com/z9fr/obsidian-mkdocs-theme/raw/master/basic_theme/css/fonts/746a677fc34469759ede.woff2) format("woff2");
 }
 @font-face {
   font-family: "Inter";
-  src: url(/css/fonts/450beda71fb8564202a0.woff2);
+  src: url(https://github.com/z9fr/obsidian-mkdocs-theme/raw/master/basic_theme/css/fonts/450beda71fb8564202a0.woff2);
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -29,27 +29,27 @@
 @font-face {
   font-family: "Inter";
   font-weight: 400;
-  src: url(/css/fonts/c39581384bcfe728af02.woff2);
+  src: url(https://github.com/z9fr/obsidian-mkdocs-theme/raw/master/basic_theme/css/fonts/c39581384bcfe728af02.woff2);
   font-style: italic;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url(public/fonts/b0b9c035692f884e8635.woff2);
+  src: url(https://github.com/z9fr/obsidian-mkdocs-theme/raw/master/basic_theme/css/fonts/b0b9c035692f884e8635.woff2);
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url(/css/fonts/856e8f46fd911d2040c3.woff2);
+  src: url(https://github.com/z9fr/obsidian-mkdocs-theme/raw/master/basic_theme/css/fonts/856e8f46fd911d2040c3.woff2);
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: "Inter";
-  src: url(/css/fonts/bdbbdeddfdfff17b0879.woff2);
+  src: url(https://github.com/z9fr/obsidian-mkdocs-theme/raw/master/basic_theme/css/fonts/bdbbdeddfdfff17b0879.woff2);
   font-weight: 800;
   font-style: italic;
   font-display: swap;
@@ -84,7 +84,7 @@
 }
 @font-face {
   font-family: "Flow Circular";
-  src: url(/css/fonts/853ff76f08786ae44ca0.woff);
+  src: url(https://github.com/z9fr/obsidian-mkdocs-theme/raw/master/basic_theme/css/fonts/853ff76f08786ae44ca0.woff);
   font-display: swap;
 }
 :root {

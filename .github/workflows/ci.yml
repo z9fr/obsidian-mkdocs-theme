@@ -8,9 +8,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - uses: mhausenblas/mkdocs-deploy-gh-pages@1.24
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
           python-version: 3.x
       - run: pip install mkdocs-roamlinks-plugin
       - run: mkdocs gh-deploy --force
+
+
+

@@ -1,0 +1,2396 @@
+<html>
+  <head>
+    <style>
+      .ͼ1.cm-editor.cm-focused {
+        outline: 1px dotted #212121;
+      }
+      .ͼ1.cm-editor {
+        position: relative !important;
+        box-sizing: border-box;
+        display: flex !important;
+        flex-direction: column;
+      }
+      .ͼ1 .cm-scroller {
+        display: flex !important;
+        align-items: flex-start !important;
+        font-family: monospace;
+        line-height: 1.4;
+        height: 100%;
+        overflow-x: auto;
+        position: relative;
+        z-index: 0;
+      }
+      .ͼ1 .cm-content[contenteditable="true"] {
+        -webkit-user-modify: read-write-plaintext-only;
+      }
+      .ͼ1 .cm-content {
+        margin: 0;
+        flex-grow: 2;
+        min-height: 100%;
+        display: block;
+        white-space: pre;
+        word-wrap: normal;
+        box-sizing: border-box;
+        padding: 4px 0;
+        outline: none;
+      }
+      .ͼ1 .cm-lineWrapping {
+        white-space: pre-wrap;
+        white-space: break-spaces;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      .ͼ2 .cm-content {
+        caret-color: black;
+      }
+      .ͼ3 .cm-content {
+        caret-color: white;
+      }
+      .ͼ1 .cm-line {
+        display: block;
+        padding: 0 2px 0 4px;
+      }
+      .ͼ1 .cm-selectionLayer {
+        z-index: -1;
+        contain: size style;
+      }
+      .ͼ1 .cm-selectionBackground {
+        position: absolute;
+      }
+      .ͼ2 .cm-selectionBackground {
+        background: #d9d9d9;
+      }
+      .ͼ3 .cm-selectionBackground {
+        background: #222;
+      }
+      .ͼ2.cm-focused .cm-selectionBackground {
+        background: #d7d4f0;
+      }
+      .ͼ3.cm-focused .cm-selectionBackground {
+        background: #233;
+      }
+      .ͼ1 .cm-cursorLayer {
+        z-index: 100;
+        contain: size style;
+        pointer-events: none;
+      }
+      .ͼ1.cm-focused .cm-cursorLayer {
+        animation: steps(1) cm-blink 1.2s infinite;
+      }
+      @keyframes cm-blink {
+        50% {
+          visibility: hidden;
+        }
+      }
+      @keyframes cm-blink2 {
+        50% {
+          visibility: hidden;
+        }
+      }
+      .ͼ1 .cm-cursor,
+      .ͼ1 .cm-dropCursor {
+        position: absolute;
+        border-left: 1.2px solid black;
+        margin-left: -0.6px;
+        pointer-events: none;
+      }
+      .ͼ1 .cm-cursor {
+        display: none;
+      }
+      .ͼ3 .cm-cursor {
+        border-left-color: #444;
+      }
+      .ͼ1.cm-focused .cm-cursor {
+        display: block;
+      }
+      .ͼ2 .cm-activeLine {
+        background-color: #f3f9ff;
+      }
+      .ͼ3 .cm-activeLine {
+        background-color: #223039;
+      }
+      .ͼ2 .cm-specialChar {
+        color: red;
+      }
+      .ͼ3 .cm-specialChar {
+        color: #f78;
+      }
+      .ͼ1 .cm-tab {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: bottom;
+      }
+      .ͼ1 .cm-widgetBuffer {
+        vertical-align: text-top;
+        height: 1em;
+        display: inline;
+      }
+      .ͼ1 .cm-placeholder {
+        color: #888;
+        display: inline-block;
+        vertical-align: top;
+      }
+      .ͼ1 .cm-button {
+        vertical-align: middle;
+        color: inherit;
+        font-size: 70%;
+        padding: 0.2em 1em;
+        border-radius: 1px;
+      }
+      .ͼ2 .cm-button:active {
+        background-image: linear-gradient(#b4b4b4, #d0d3d6);
+      }
+      .ͼ2 .cm-button {
+        background-image: linear-gradient(#eff1f5, #d9d9df);
+        border: 1px solid #888;
+      }
+      .ͼ3 .cm-button:active {
+        background-image: linear-gradient(#111, #333);
+      }
+      .ͼ3 .cm-button {
+        background-image: linear-gradient(#393939, #111);
+        border: 1px solid #888;
+      }
+      .ͼ1 .cm-textfield {
+        vertical-align: middle;
+        color: inherit;
+        font-size: 70%;
+        border: 1px solid silver;
+        padding: 0.2em 0.5em;
+      }
+      .ͼ2 .cm-textfield {
+        background-color: white;
+      }
+      .ͼ3 .cm-textfield {
+        border: 1px solid #555;
+        background-color: inherit;
+      }
+      .ͼr .cm-content {
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      .ͼq .cm-content {
+        white-space: pre-wrap;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+      }
+      .ͼ4 .cm-line ::selection {
+        background-color: transparent !important;
+      }
+      .ͼ4 .cm-line::selection {
+        background-color: transparent !important;
+      }
+      .ͼ4 .cm-line {
+        caret-color: transparent !important;
+      }
+    </style>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>test - Obsidian v0.13.33</title>
+    <link href="/css/app.css" type="text/css" rel="stylesheet" />
+    <style type="text/css"></style>
+    <style type="text/css"></style>
+  </head>
+  <body
+    class="theme-dark is-frameless mod-linux"
+    style="padding-top: 24px; --editor-font-size: 16px"
+  >
+    <script type="text/javascript" src="/lib/codemirror/codemirror.js"></script>
+    <script type="text/javascript" src="/lib/codemirror/overlay.js"></script>
+    <script type="text/javascript" src="/lib/codemirror/markdown.js"></script>
+    <script type="text/javascript" src="/lib/codemirror/cm-addons.js"></script>
+    <script type="text/javascript" src="/lib/codemirror/vim.js"></script>
+    <script type="text/javascript" src="/lib/codemirror/meta.min.js"></script>
+    <script type="text/javascript" src="/lib/moment.min.js"></script>
+    <script type="text/javascript" src="/lib/pixi.min.js"></script>
+    <script type="text/javascript" src="/lib/nspell.min.js"></script>
+    <script type="text/javascript" src="/lib/purify.min.js"></script>
+    <script type="text/javascript" src="/lib/i18next.min.js"></script>
+    <script type="text/javascript" src="/lib/scrypt.js"></script>
+    <script type="text/javascript" src="/lib/turndown.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
+
+    <div
+      class="app-container is-left-sidedock-collapsed is-right-sidedock-collapsed"
+    >
+      <div class="horizontal-main-container">
+        <div class="workspace">
+          <div class="workspace-ribbon side-dock-ribbon mod-left">
+            <div
+              class="workspace-ribbon-collapse-btn"
+              aria-label="Collapse"
+              aria-label-position="right"
+              onclick="NavBarHide()"
+            >
+              <svg
+                viewBox="0 0 100 100"
+                class="left-arrow"
+                width="16"
+                height="16"
+              >
+                <path
+                  fill="currentColor"
+                  stroke="currentColor"
+                  d="M70,8c-0.5,0-1,0.2-1.4,0.6l-40,40c-0.8,0.8-0.8,2,0,2.8l40,40c0.5,0.5,1.3,0.7,1.9,0.5c0.7-0.2,1.3-0.7,1.4-1.4 c0.2-0.7,0-1.4-0.5-1.9L32.8,50l38.6-38.6c0.6-0.6,0.8-1.5,0.4-2.2C71.5,8.4,70.8,8,70,8L70,8z"
+                ></path>
+              </svg>
+            </div>
+
+            <div class="side-dock-actions">
+              <div
+                class="side-dock-ribbon-action"
+                aria-label="Open quick switcher"
+                aria-label-position="right"
+              >
+                <svg
+                  viewBox="0 0 100 100"
+                  class="go-to-file"
+                  width="18"
+                  height="18"
+                >
+                  <path
+                    fill="currentColor"
+                    stroke="currentColor"
+                    d="M16,4c-1.1,0-2,0.9-2,2v26h4V8h64v84H18V78h-4v16c0,1.1,0.9,2,2,2h68c1.1,0,2-0.9,2-2V6c0-1.1-0.9-2-2-2L16,4z M32,20v4 h36v-4H32z M32,32v4h36v-4H32z M22,36v12H6v2v12h16v12l25.3-19L22,36z M26,44l14.7,11L26,66v-8H10v-6h16V44z M54,46 c-1.1,0-2,0.9-2,2v14c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V48c0-1.1-0.9-2-2-2H54z M56,50h8v10h-8V50z M32,74v4h36v-4H32z"
+                  ></path>
+                </svg>
+              </div>
+              <div
+                class="side-dock-ribbon-action"
+                aria-label="Open graph view"
+                aria-label-position="right"
+              >
+                <svg
+                  viewBox="0 0 100 100"
+                  class="dot-network"
+                  width="18"
+                  height="18"
+                >
+                  <path
+                    fill="currentColor"
+                    stroke="currentColor"
+                    d="M12,0C5.4,0,0,5.4,0,12s5.4,12,12,12c2.6,0,5-0.8,6.9-2.2l15.6,15.6C31.7,40.8,30,45.2,30,50c0,4,1.2,7.6,3.2,10.7 L20.1,71.1c-2.1-1.9-5-3.1-8.1-3.1C5.4,68,0,73.4,0,80s5.4,12,12,12s12-5.4,12-12c0-2.1-0.5-4-1.5-5.8l13.2-10.4 C39.3,67.6,44.4,70,50,70c2.7,0,5.2-0.5,7.5-1.4l5.3,9.9C59.9,80.7,58,84.1,58,88c0,6.6,5.4,12,12,12s12-5.4,12-12s-5.4-12-12-12 c-1.3,0-2.6,0.2-3.8,0.6L61,66.7c3.8-2.5,6.7-6.2,8.1-10.6l6.9,1.4c0,0.2,0,0.3,0,0.5c0,6.6,5.4,12,12,12s12-5.4,12-12 c0-6.6-5.4-12-12-12c-5.1,0-9.4,3.2-11.2,7.6l-6.9-1.5c0.1-0.7,0.1-1.4,0.1-2.1c0-7.9-4.6-14.7-11.3-17.9l3.1-8.2 c0.7,0.1,1.5,0.2,2.2,0.2c6.6,0,12-5.4,12-12S70.6,0,64,0S52,5.4,52,12c0,4.4,2.5,8.3,6.1,10.4L55,30.7c-1.6-0.4-3.3-0.7-5-0.7 c-4.8,0-9.2,1.7-12.6,4.5L21.8,18.9c1.4-2,2.2-4.4,2.2-6.9C24,5.4,18.6,0,12,0L12,0z M12,4c4.4,0,8,3.6,8,8s-3.6,8-8,8s-8-3.6-8-8 S7.6,4,12,4z M64,4c4.4,0,8,3.6,8,8s-3.6,8-8,8s-8-3.6-8-8S59.6,4,64,4z M50,34c8.9,0,16,7.1,16,16c0,8.9-7.1,16-16,16 c-8.9,0-16-7.1-16-16c0-4.3,1.7-8.2,4.4-11.1c0.2-0.1,0.3-0.3,0.4-0.4C41.8,35.7,45.7,34,50,34z M88,50c4.4,0,8,3.6,8,8 s-3.6,8-8,8s-8-3.6-8-8S83.6,50,88,50z M12,72c4.4,0,8,3.6,8,8s-3.6,8-8,8s-8-3.6-8-8S7.6,72,12,72z M70,80c4.4,0,8,3.6,8,8 s-3.6,8-8,8c-4.4,0-8-3.6-8-8c0-3,1.7-5.6,4.1-7c0.1,0,0.1,0,0.2-0.1c0,0,0,0,0.1-0.1c0,0,0.1,0,0.1-0.1C67.6,80.3,68.7,80,70,80z "
+                  ></path>
+                </svg>
+              </div>
+              <div
+                class="side-dock-ribbon-action"
+                aria-label="Open command palette"
+                aria-label-position="right"
+              >
+                <svg
+                  viewBox="0 0 100 100"
+                  class="run-command"
+                  width="18"
+                  height="18"
+                >
+                  <path
+                    fill="currentColor"
+                    stroke="currentColor"
+                    d="M37,16c-4.4,0-8.3,3.3-9.2,7.6l-11.6,52c-0.5,2.2,0,4.3,1.2,5.9c1.2,1.6,3.2,2.6,5.4,2.6H79c4.4,0,8.3-3.3,9.2-7.6 l11.6-52c0.5-2.2,0-4.3-1.2-5.9C97.4,17,95.4,16,93.2,16L37,16z M37,20h56.2c1.1,0,1.8,0.4,2.2,1c0.5,0.6,0.7,1.4,0.4,2.6l-1,4.4 H30.8l0.8-3.6C32.1,22.2,34.8,20,37,20z M29.9,32H94l-9.6,43.6C83.9,77.8,81.2,80,79,80H22.8c-1.1,0-1.8-0.4-2.2-1 c-0.5-0.6-0.7-1.4-0.4-2.6L29.9,32z M0,36v4h19.6l0.9-4L0,36z M36.7,38c-0.8,0.1-1.4,0.7-1.6,1.5l-3.5,14c-0.2,0.6,0,1.2,0.4,1.7 c0.4,0.5,1,0.8,1.6,0.8H81c0.9,0,1.7-0.6,1.9-1.5l3.5-14c0.2-0.6,0-1.3-0.4-1.8c-0.4-0.5-1-0.8-1.6-0.8H37.1c-0.1,0-0.1,0-0.2,0 C36.9,38,36.8,38,36.7,38L36.7,38z M38.7,42h43.2l-2.4,10H36.2L38.7,42z M0,52v4h16l0.9-4H0z M0,68v4h12.4l0.9-4H0z"
+                  ></path>
+                </svg>
+              </div>
+              <div
+                class="side-dock-ribbon-action"
+                aria-label="Open Markdown importer"
+                aria-label-position="right"
+              >
+                <svg
+                  viewBox="0 0 100 100"
+                  class="blocks"
+                  width="18"
+                  height="18"
+                >
+                  <path
+                    fill="currentColor"
+                    stroke="currentColor"
+                    d="M47.7,0c-0.5,0.1-1,0.4-1.3,0.8L32.3,20.3c-0.6,0.9-0.4,2.1,0.4,2.7l19.4,14.1c0,0,0.1,0.1,0.1,0.1c0.9,0.5,2,0.3,2.6-0.6 l14.2-19.4c0.3-0.4,0.5-1,0.4-1.5c-0.1-0.5-0.4-1-0.8-1.3L49.2,0.4C48.8,0.1,48.3,0,47.9,0C47.8,0,47.8,0,47.7,0z M73.6,0 c-1,0.2-1.6,1-1.6,2v24c0,1.1,0.9,2,2,2h24c1.1,0,2-0.9,2-2V2c0-1.1-0.9-2-2-2H74c-0.1,0-0.1,0-0.2,0S73.7,0,73.6,0z M76,4h20v20 H76V4z M48.5,4.8l16.1,11.7L52.9,32.8L36.7,20.9L48.5,4.8z M1.6,24c-1,0.2-1.6,1-1.6,2v23.8c0,0.1,0,0.1,0,0.2c0,0.1,0,0.1,0,0.2 v23.6c0,0.1,0,0.1,0,0.2c0,0.1,0,0.1,0,0.2V98c0,1.1,0.9,2,2,2h72c1.1,0,2-0.9,2-2V74c0-1.1-0.9-2-2-2H52V50c0-1.1-0.9-2-2-2H28 V26c0-1.1-0.9-2-2-2H2c-0.1,0-0.1,0-0.2,0S1.7,24,1.6,24L1.6,24z M4,28h20v20H4L4,28z M87.3,30.9c-0.1,0-0.2,0-0.3,0.1l-22.7,7.6 c-0.5,0.2-0.9,0.5-1.2,1c-0.2,0.5-0.3,1-0.1,1.5l7.6,22.7c0,0,0,0.1,0.1,0.1c0.4,1,1.5,1.5,2.5,1.1l22.7-7.6 c1-0.4,1.6-1.5,1.3-2.5l-7.6-22.7C89.1,31.3,88.2,30.7,87.3,30.9L87.3,30.9z M86.3,35.4l6.3,19l-18.9,6.3l-6.3-18.9L86.3,35.4z M4,52h20v20H4L4,52z M28,52h20v20H28L28,52z M4,76h20v20H4L4,76z M28,76h20v20H28L28,76z M52,76h20v20H52V76z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <div class="side-dock-settings">
+              <div
+                class="side-dock-ribbon-action"
+                aria-label="Open another vault"
+                aria-label-position="right"
+              >
+                <svg viewBox="0 0 100 100" class="vault" width="18" height="18">
+                  <path
+                    fill="currentColor"
+                    stroke="currentColor"
+                    d="M10,10c-4.4,0-8,3.6-8,8v64c0,4.4,3.6,8,8,8h2v2h10v-2h56v2h10v-2h2c4.4,0,8-3.6,8-8V18c0-4.4-3.6-8-8-8L10,10z M10,14h80 c2.2,0,4,1.8,4,4v64c0,2.2-1.8,4-4,4H10c-2.2,0-4-1.8-4-4V18C6,15.8,7.8,14,10,14z M13.6,20c-1,0.2-1.6,1-1.6,2v23.4 c-0.1,0.4-0.1,0.8,0,1.2v7.1c0,0.1,0,0.1,0,0.2c0,0.1,0,0.3,0,0.4c0,0.1,0,0.1,0,0.2V78c0,1.1,0.9,2,2,2h72c1.1,0,2-0.9,2-2V22 c0-1.1-0.9-2-2-2H14c-0.1,0-0.1,0-0.2,0S13.7,20,13.6,20z M16,24h68v52H16V54.9l3.4-3.4c0.4-0.4,0.6-0.9,0.6-1.4s-0.2-1.1-0.6-1.4 L16,45.1L16,24z M49.8,27.9c-0.1,0-0.2,0-0.3,0.1c-0.1,0-0.1,0-0.2,0.1c-5.5,0.2-10.5,2.4-14.3,5.9c-0.5,0.2-0.9,0.6-1.1,1.1 c-3.4,3.7-5.6,8.6-5.9,13.9c-0.4,0.6-0.4,1.4,0,2c0.2,5.3,2.3,10.1,5.7,13.8c0.2,0.7,0.7,1.3,1.4,1.4c3.8,3.4,8.8,5.5,14.3,5.7 c0.1,0,0.1,0,0.2,0.1c0.1,0,0.3,0,0.4,0c0.1,0,0.3,0,0.4,0c0.1,0,0.1,0,0.2-0.1c5.4-0.2,10.4-2.3,14.2-5.7 c0.7-0.2,1.3-0.8,1.4-1.5c3.4-3.8,5.5-8.7,5.7-14.2c0,0,0-0.1,0.1-0.1c0,0,0,0,0-0.1c0-0.1,0-0.3,0-0.4c0-0.1,0-0.2,0-0.3 c0-0.1,0-0.3-0.1-0.4c-0.2-5.6-2.4-10.7-6-14.5c0,0,0,0-0.1-0.1c0,0,0-0.1-0.1-0.1c-0.2-0.2-0.4-0.4-0.6-0.6 c-3.8-3.6-8.9-5.9-14.4-6.1C50.5,27.9,50.1,27.9,49.8,27.9z M48,32.1c0,1.1,0.9,2,2,2c1.1,0,2-0.9,2-2c3.5,0.4,6.6,1.8,9.3,3.9 c-0.6,0.5-0.9,1.3-0.7,2c0.2,0.7,0.8,1.3,1.5,1.5c0.8,0.2,1.5-0.1,2-0.7c2.1,2.6,3.5,5.8,3.9,9.3c0,0-0.1,0-0.1,0 c-0.1,0-0.1,0-0.2,0c-1.1,0.1-1.8,1.1-1.7,2.1s1,1.9,2.1,1.9c-0.4,3.5-1.8,6.6-3.9,9.3c-0.4-0.4-1-0.6-1.6-0.6c-0.1,0-0.1,0-0.2,0 c-0.7,0.1-1.3,0.7-1.5,1.4c-0.2,0.7,0,1.5,0.5,2c-2.6,2.1-5.8,3.5-9.3,3.9c0-0.6-0.2-1.1-0.6-1.5c-0.4-0.4-1-0.6-1.5-0.5 c-0.1,0-0.2,0-0.3,0.1c-0.9,0.2-1.6,1-1.6,1.9c-3.5-0.4-6.6-1.8-9.3-3.9c0.6-0.6,0.7-1.5,0.4-2.2c-0.3-0.7-1.1-1.2-1.9-1.2 c-0.1,0-0.1,0-0.2,0c-0.4,0.1-0.8,0.3-1.1,0.6c-2.1-2.6-3.5-5.8-3.9-9.3c1.1,0,2-0.9,2-2c0-1.1-0.9-2-2-2c0.4-3.5,1.8-6.6,3.9-9.3 c0.5,0.6,1.3,0.9,2,0.7c0.7-0.2,1.3-0.8,1.5-1.5c0.2-0.8-0.1-1.5-0.7-2C41.4,33.9,44.5,32.4,48,32.1L48,32.1z M50,40 c-5.5,0-10,4.5-10,10s4.5,10,10,10s10-4.5,10-10S55.5,40,50,40z M50,44c3.3,0,6,2.7,6,6s-2.7,6-6,6s-6-2.7-6-6S46.7,44,50,44z"
+                  ></path>
+                </svg>
+              </div>
+              <div
+                class="side-dock-ribbon-action"
+                aria-label="Help"
+                aria-label-position="right"
+              >
+                <svg viewBox="0 0 100 100" class="help" width="18" height="18">
+                  <path
+                    fill="currentColor"
+                    stroke="currentColor"
+                    d="M50,4C24.6,4,4,24.6,4,50s20.6,46,46,46s46-20.6,46-46S75.4,4,50,4L50,4z M50,8c23.2,0,42,18.8,42,42S73.2,92,50,92 S8,73.2,8,50S26.8,8,50,8z M50.6,25c-7.5,0-12.4,4.5-13.5,11.4c-0.1,0.4,0.1,0.7,0.6,0.8l4.5,0.8c0.4,0.1,0.7-0.1,0.8-0.6 c0.9-4.4,3.4-6.8,7.5-6.8c4.1,0,7,2.6,7,6.7c0,2.4-0.9,4.1-3.4,7.5l-4.8,6.6c-1.5,2.1-2.1,3.6-2.1,6.5v2.9c0,0.4,0.3,0.7,0.7,0.7 h4.7c0.4,0,0.7-0.3,0.7-0.7v-2.3c0-2.4,0.4-3.4,1.9-5.4l4.8-6.6c2.4-3.4,3.7-5.9,3.7-9.3C63.6,30.1,58.3,25,50.6,25L50.6,25z M47.4,67c-0.4,0-0.7,0.3-0.7,0.7v6.2c0,0.4,0.3,0.7,0.7,0.7h5.5c0.4,0,0.7-0.3,0.7-0.7v-6.2c0-0.4-0.3-0.7-0.7-0.7H47.4z"
+                  ></path>
+                </svg>
+              </div>
+              <div
+                class="side-dock-ribbon-action"
+                aria-label="Settings"
+                aria-label-position="right"
+              >
+                <svg viewBox="0 0 100 100" class="gear" width="18" height="18">
+                  <path
+                    fill="currentColor"
+                    stroke="currentColor"
+                    d="M44.4,4c-1,0-1.8,0.7-2,1.7l-1.9,11.9c-2.3,0.7-4.6,1.6-6.7,2.7l-9.8-7c-0.8-0.6-1.9-0.5-2.6,0.2l-7.8,7.8 c-0.7,0.7-0.8,1.8-0.2,2.6l6.9,9.9c-1.2,2.1-2.1,4.4-2.8,6.7l-11.9,2c-1,0.2-1.7,1-1.7,2v11c0,1,0.7,1.8,1.6,2l11.9,2.1 c0.7,2.4,1.6,4.6,2.8,6.7l-7,9.8c-0.6,0.8-0.5,1.9,0.2,2.6l7.8,7.8c0.7,0.7,1.8,0.8,2.6,0.2l9.9-6.9c2.1,1.2,4.3,2.1,6.7,2.8 l2,11.9c0.2,1,1,1.7,2,1.7h11c1,0,1.8-0.7,2-1.7l2.1-12c2.3-0.7,4.6-1.6,6.7-2.8l10,7c0.8,0.6,1.9,0.5,2.6-0.2l7.8-7.8 c0.7-0.7,0.8-1.8,0.2-2.6l-7.1-9.9c1.1-2.1,2.1-4.3,2.7-6.6l12-2.1c1-0.2,1.7-1,1.7-2v-11c0-1-0.7-1.8-1.7-2l-12-2 c-0.7-2.3-1.6-4.5-2.7-6.6l7-10c0.6-0.8,0.5-1.9-0.2-2.6l-7.8-7.8c-0.7-0.7-1.8-0.8-2.6-0.2l-9.8,7.1c-2.1-1.2-4.3-2.1-6.7-2.8 l-2.1-12c-0.2-1-1-1.7-2-1.7L44.4,4z M46.1,8h7.6l2,11.4c0.1,0.8,0.7,1.4,1.5,1.6c2.9,0.7,5.7,1.9,8.2,3.4 c0.7,0.4,1.6,0.4,2.2-0.1l9.4-6.7l5.4,5.4l-6.7,9.5c-0.5,0.6-0.5,1.5-0.1,2.2c1.5,2.5,2.6,5.2,3.4,8.1c0.2,0.8,0.8,1.4,1.6,1.5 L92,46.1v7.6l-11.4,2c-0.8,0.1-1.4,0.7-1.6,1.5c-0.7,2.9-1.9,5.6-3.4,8.1c-0.4,0.7-0.4,1.6,0.1,2.2l6.8,9.4l-5.4,5.4l-9.5-6.7 c-0.7-0.5-1.5-0.5-2.2-0.1c-2.5,1.5-5.2,2.7-8.2,3.4c-0.8,0.2-1.3,0.8-1.5,1.6l-2,11.4h-7.6l-1.9-11.3c-0.1-0.8-0.7-1.4-1.5-1.6 c-2.9-0.7-5.7-1.9-8.2-3.4c-0.7-0.4-1.5-0.4-2.2,0.1l-9.4,6.6l-5.4-5.4l6.6-9.3c0.5-0.7,0.5-1.5,0.1-2.2c-1.5-2.5-2.7-5.3-3.4-8.2 c-0.2-0.8-0.8-1.3-1.6-1.5L8,53.7v-7.6l11.3-1.9c0.8-0.1,1.4-0.7,1.6-1.5c0.7-2.9,1.9-5.7,3.4-8.2c0.4-0.7,0.4-1.5-0.1-2.2 l-6.6-9.4l5.4-5.4l9.3,6.7c0.6,0.5,1.5,0.5,2.2,0.1c2.5-1.5,5.3-2.7,8.2-3.4c0.8-0.2,1.4-0.8,1.5-1.6L46.1,8z M50,34 c-8.8,0-16,7.2-16,16s7.2,16,16,16s16-7.2,16-16S58.8,34,50,34z M50,38c6.7,0,12,5.3,12,12s-5.3,12-12,12s-12-5.3-12-12 S43.3,38,50,38z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div
+            class="workspace-split mod-horizontal mod-left-split"
+            style="width: 300px; transition: width 0.5s ease 0s"
+            id="navBar"
+          >
+            <hr class="workspace-leaf-resize-handle" />
+            <div class="workspace-sidedock-empty-state" style="display: none">
+              <p class="u-muted">
+                The sidebar is empty, try dragging a pane here.
+              </p>
+            </div>
+            <div class="workspace-tabs">
+              <hr class="workspace-leaf-resize-handle" />
+              <div class="workspace-tab-header-container">
+                <div class="workspace-tab-container-before is-before-active">
+                  <div class="workspace-tab-header-inner"></div>
+                </div>
+                <div class="workspace-tab-container-inner">
+                  <div
+                    class="workspace-tab-header is-active"
+                    aria-label="File explorer"
+                    data-type="file-explorer"
+                  >
+                    <div class="workspace-tab-header-inner">
+                      <div class="workspace-tab-header-inner-icon">
+                        <svg
+                          viewBox="0 0 100 100"
+                          class="folder"
+                          width="17"
+                          height="17"
+                        >
+                          <path
+                            fill="currentColor"
+                            stroke="currentColor"
+                            d="M6.1,8c-3.3,0-6,2.7-6,6v73.8c-0.1,0.5-0.1,0.9,0.1,1.4c0.6,2.7,3,4.8,5.9,4.8h78c3,0,5.4-2.2,5.9-5.1 c0-0.1,0.1-0.2,0.1-0.4c0,0,0-0.1,0-0.1l0.1-0.3c0,0,0,0,0-0.1l9.9-53.6l0.1-0.2V34c0-3.3-2.7-6-6-6v-6c0-3.3-2.7-6-6-6H36.1 c0,0,0,0-0.1,0c-0.1,0-0.2-0.2-0.6-0.6c-0.5-0.6-1.1-1.5-1.7-2.5c-0.6-1-1.3-2.1-2.1-3C30.9,9,29.7,8,28.1,8L6.1,8z M6.1,12h22 c-0.1,0,0.1,0,0.6,0.6c0.5,0.6,1.1,1.5,1.7,2.5c0.6,1,1.3,2.1,2.1,3c0.8,0.9,1.9,1.9,3.6,1.9h52c1.1,0,2,0.9,2,2v6h-74 c-3.1,0-5.7,2.5-5.9,5.6h-0.1L10.1,34l-6,32.4V14C4.1,12.9,4.9,12,6.1,12z M16.1,32h78c1.1,0,2,0.9,2,2l-9.8,53.1l-0.1,0.1 c0,0.1,0,0.2-0.1,0.2c0,0.1,0,0.2-0.1,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0.1c0,0.1,0,0.2-0.1,0.3c0,0.1,0,0.1,0,0.2 c0,0.1,0,0.2,0,0.2c-0.3,0.8-1,1.4-1.9,1.4h-78c-1.1,0-2-0.9-2-2L14,34.4l0.1-0.2V34C14.1,32.9,14.9,32,16.1,32L16.1,32z"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="workspace-tab-header is-after-active"
+                    aria-label="Search"
+                    data-type="search"
+                  >
+                    <div class="workspace-tab-header-inner">
+                      <div class="workspace-tab-header-inner-icon">
+                        <svg
+                          viewBox="0 0 100 100"
+                          class="search"
+                          width="17"
+                          height="17"
+                        >
+                          <path
+                            fill="currentColor"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            d="M42,6C23.2,6,8,21.2,8,40s15.2,34,34,34c7.4,0,14.3-2.4,19.9-6.4l26.3,26.3l5.6-5.6l-26-26.1c5.1-6,8.2-13.7,8.2-22.1 C76,21.2,60.8,6,42,6z M42,10c16.6,0,30,13.4,30,30S58.6,70,42,70S12,56.6,12,40S25.4,10,42,10z"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="workspace-tab-container-after">
+                  <div class="workspace-tab-header-inner"></div>
+                </div>
+              </div>
+              <div class="workspace-leaf">
+                <hr class="workspace-leaf-resize-handle" />
+                <div class="workspace-leaf-content" data-type="file-explorer">
+                  <div class="nav-header">
+                    <div class="nav-buttons-container">
+                      <div class="nav-action-button" aria-label="New note">
+                        <svg
+                          viewBox="0 0 100 100"
+                          class="document"
+                          width="20"
+                          height="20"
+                        >
+                          <path
+                            fill="currentColor"
+                            stroke="currentColor"
+                            d="M14,4v92h72V29.2l-0.6-0.6l-24-24L60.8,4L14,4z M18,8h40v24h24v60H18L18,8z M62,10.9L79.1,28H62V10.9z"
+                          ></path>
+                        </svg>
+                      </div>
+                      <div class="nav-action-button" aria-label="New folder">
+                        <svg
+                          viewBox="0 0 100 100"
+                          class="folder"
+                          width="20"
+                          height="20"
+                        >
+                          <path
+                            fill="currentColor"
+                            stroke="currentColor"
+                            d="M6.1,8c-3.3,0-6,2.7-6,6v73.8c-0.1,0.5-0.1,0.9,0.1,1.4c0.6,2.7,3,4.8,5.9,4.8h78c3,0,5.4-2.2,5.9-5.1 c0-0.1,0.1-0.2,0.1-0.4c0,0,0-0.1,0-0.1l0.1-0.3c0,0,0,0,0-0.1l9.9-53.6l0.1-0.2V34c0-3.3-2.7-6-6-6v-6c0-3.3-2.7-6-6-6H36.1 c0,0,0,0-0.1,0c-0.1,0-0.2-0.2-0.6-0.6c-0.5-0.6-1.1-1.5-1.7-2.5c-0.6-1-1.3-2.1-2.1-3C30.9,9,29.7,8,28.1,8L6.1,8z M6.1,12h22 c-0.1,0,0.1,0,0.6,0.6c0.5,0.6,1.1,1.5,1.7,2.5c0.6,1,1.3,2.1,2.1,3c0.8,0.9,1.9,1.9,3.6,1.9h52c1.1,0,2,0.9,2,2v6h-74 c-3.1,0-5.7,2.5-5.9,5.6h-0.1L10.1,34l-6,32.4V14C4.1,12.9,4.9,12,6.1,12z M16.1,32h78c1.1,0,2,0.9,2,2l-9.8,53.1l-0.1,0.1 c0,0.1,0,0.2-0.1,0.2c0,0.1,0,0.2-0.1,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0.1c0,0.1,0,0.2-0.1,0.3c0,0.1,0,0.1,0,0.2 c0,0.1,0,0.2,0,0.2c-0.3,0.8-1,1.4-1.9,1.4h-78c-1.1,0-2-0.9-2-2L14,34.4l0.1-0.2V34C14.1,32.9,14.9,32,16.1,32L16.1,32z"
+                          ></path>
+                        </svg>
+                      </div>
+                      <div
+                        class="nav-action-button"
+                        aria-label="Change sort order"
+                      >
+                        <svg
+                          viewBox="0 0 100 100"
+                          class="up-and-down-arrows"
+                          width="20"
+                          height="20"
+                        >
+                          <path
+                            fill="currentColor"
+                            stroke="currentColor"
+                            d="M25.8,5.9c-0.1,0-0.2,0-0.3,0.1c-0.1,0-0.1,0-0.2,0.1c-0.1,0-0.1,0-0.2,0.1c-0.1,0.1-0.3,0.2-0.4,0.3 c-0.1,0.1-0.2,0.1-0.3,0.2c-0.1,0.1-0.2,0.2-0.3,0.3L8.6,22.6c-0.8,0.8-0.8,2.1,0,2.9c0.8,0.8,2.1,0.8,2.9,0L24,12.9V76 c0,0.7,0.4,1.4,1,1.8c0.6,0.4,1.4,0.4,2,0c0.6-0.4,1-1,1-1.8V12.9l12.6,12.6c0.8,0.8,2.1,0.8,2.9,0c0.8-0.8,0.8-2.1,0-2.9 L27.7,6.9c-0.1-0.2-0.3-0.4-0.6-0.6c-0.2-0.2-0.5-0.3-0.8-0.3C26.2,6,26,5.9,25.8,5.9L25.8,5.9z M74,6c-1.1,0-2,0.9-2,2s0.9,2,2,2 s2-0.9,2-2S75.1,6,74,6z M74,14c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S75.1,14,74,14z M73.8,21.9c-0.1,0-0.2,0-0.3,0.1 c-0.9,0.2-1.6,1-1.6,2v63.1L59.4,74.6c-0.5-0.5-1.2-0.7-1.9-0.6c-0.8,0.1-1.4,0.7-1.6,1.4c-0.2,0.7,0,1.5,0.6,2l15.8,15.7 c0,0.1,0.1,0.1,0.1,0.2l0.1,0.1c0,0,0.1,0.1,0.1,0.1c0,0,0,0,0.1,0c0.1,0.1,0.3,0.2,0.4,0.3c0,0,0,0,0.1,0c0,0,0.1,0,0.1,0.1 c0,0,0,0,0.1,0c0.1,0,0.1,0,0.2,0.1c0.2,0,0.4,0,0.6,0c0,0,0.1,0,0.1,0c0.2,0,0.3-0.1,0.5-0.2c0.3-0.1,0.5-0.3,0.7-0.6l15.9-15.8 c0.8-0.8,0.8-2.1,0-2.9c-0.8-0.8-2.1-0.8-2.9,0L76,87.1V24c0-0.6-0.2-1.1-0.6-1.5C75,22.1,74.4,21.9,73.8,21.9L73.8,21.9z M26,82 c-1.1,0-2,0.9-2,2c0,1.1,0.9,2,2,2c1.1,0,2-0.9,2-2C28,82.9,27.1,82,26,82z M26,90c-1.1,0-2,0.9-2,2s0.9,2,2,2c1.1,0,2-0.9,2-2 C28,90.9,27.1,90,26,90z"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="nav-files-container node-insert-event"
+                    style="position: relative"
+                  >
+                    <!-- nav bar -->
+                    <div class="nav-folder mod-root">
+                      <div class="nav-folder-title" data-path="/">
+                        <div
+                          class="nav-folder-collapse-indicator collapse-icon"
+                        ></div>
+                      </div>
+
+                      <div class="nav-folder-children" style="">
+                        <div
+                          style="
+                            width: 296px;
+                            height: 0.1px;
+                            margin-bottom: 0px;
+                          "
+                        ></div>
+
+                         
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../.."
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Home</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-folder">
+  <div class="nav-folder-title" data-path="test" draggable="true">
+    <div class="nav-folder-collapse-indicator collapse-icon">
+      <svg viewBox="0 0 100 100" class="right-triangle" width="8" height="8">
+        <path
+          fill="currentColor"
+          stroke="currentColor"
+          d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+        ></path>
+      </svg>
+    </div>
+    <div class="nav-folder-title-content">Advanced topics</div>
+  </div>
+  <div class="nav-folder-children" style="">
+    <div style="width: 281px; height: 0.1px; margin-bottom: 0px"></div>
+     
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Advanced%20topics/Accepted%20file%20formats/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Accepted file formats</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Advanced%20topics/Community%20plugins/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Community plugins</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Advanced%20topics/Contributing%20to%20Obsidian/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Contributing to Obsidian</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Advanced%20topics/Customizing%20CSS/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Customizing CSS</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Advanced%20topics/Deleting%20files/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Deleting files</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Advanced%20topics/Drag%20and%20Drop/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Drag and Drop</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Advanced%20topics/HTML%20sanitization/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">HTML sanitization</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Advanced%20topics/How%20Obsidian%20stores%20data/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">How Obsidian stores data</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Advanced%20topics/Insider%20builds/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Insider builds</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Advanced%20topics/Using%20obsidian%20URI/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Using obsidian URI</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Advanced%20topics/YAML%20front%20matter/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">YAML front matter</div>
+  </a>
+</div>
+
+ 
+  </div>
+</div>
+  
+
+<div class="nav-folder">
+  <div class="nav-folder-title" data-path="test" draggable="true">
+    <div class="nav-folder-collapse-indicator collapse-icon">
+      <svg viewBox="0 0 100 100" class="right-triangle" width="8" height="8">
+        <path
+          fill="currentColor"
+          stroke="currentColor"
+          d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+        ></path>
+      </svg>
+    </div>
+    <div class="nav-folder-title-content">Attachments</div>
+  </div>
+  <div class="nav-folder-children" style="">
+    <div style="width: 281px; height: 0.1px; margin-bottom: 0px"></div>
+     
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Attachments/Slides%20demo/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Slides demo</div>
+  </a>
+</div>
+
+ 
+  </div>
+</div>
+  
+
+<div class="nav-folder">
+  <div class="nav-folder-title" data-path="test" draggable="true">
+    <div class="nav-folder-collapse-indicator collapse-icon">
+      <svg viewBox="0 0 100 100" class="right-triangle" width="8" height="8">
+        <path
+          fill="currentColor"
+          stroke="currentColor"
+          d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+        ></path>
+      </svg>
+    </div>
+    <div class="nav-folder-title-content">Concepts</div>
+  </div>
+  <div class="nav-folder-children" style="">
+    <div style="width: 281px; height: 0.1px; margin-bottom: 0px"></div>
+     
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Concepts/Current%20version/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Current version</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Concepts/Installer%20version/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Installer version</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Concepts/Interface%20language/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Interface language</div>
+  </a>
+</div>
+
+ 
+  </div>
+</div>
+  
+
+<div class="nav-folder">
+  <div class="nav-folder-title" data-path="test" draggable="true">
+    <div class="nav-folder-collapse-indicator collapse-icon">
+      <svg viewBox="0 0 100 100" class="right-triangle" width="8" height="8">
+        <path
+          fill="currentColor"
+          stroke="currentColor"
+          d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+        ></path>
+      </svg>
+    </div>
+    <div class="nav-folder-title-content">Customization</div>
+  </div>
+  <div class="nav-folder-children" style="">
+    <div style="width: 281px; height: 0.1px; margin-bottom: 0px"></div>
+     
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Customization/Appearance/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Appearance</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Customization/Custom%20hotkeys/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Custom hotkeys</div>
+  </a>
+</div>
+
+ 
+  </div>
+</div>
+  
+
+<div class="nav-folder">
+  <div class="nav-folder-title" data-path="test" draggable="true">
+    <div class="nav-folder-collapse-indicator collapse-icon">
+      <svg viewBox="0 0 100 100" class="right-triangle" width="8" height="8">
+        <path
+          fill="currentColor"
+          stroke="currentColor"
+          d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+        ></path>
+      </svg>
+    </div>
+    <div class="nav-folder-title-content">How to</div>
+  </div>
+  <div class="nav-folder-children" style="">
+    <div style="width: 281px; height: 0.1px; margin-bottom: 0px"></div>
+     
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Add%20aliases%20to%20note/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Add aliases to note</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Add%20custom%20styles/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Add custom styles</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Basic%20note%20taking/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Basic note taking</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Capture%20information/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Capture information</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Change%20settings/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Change settings</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Create%20notes/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Create notes</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Embed%20files/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Embed files</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Folding/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Folding</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Format%20your%20notes/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Format your notes</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Import%20data/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Import data</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Internal%20link/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Internal link</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Link%20to%20blocks/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Link to blocks</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Manage%20attachments/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Manage attachments</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Preview%20and%20edit%20modes/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Preview and edit modes</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Rename%20notes/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Rename notes</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Update%20Obsidian/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Update Obsidian</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Use%20hotkeys/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Use hotkeys</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Working%20with%20backlinks/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Working with backlinks</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Working%20with%20multiple%20cursors/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Working with multiple cursors</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Working%20with%20multiple%20notes/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Working with multiple notes</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Working%20with%20multiple%20vaults/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Working with multiple vaults</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../How%20to/Working%20with%20tags/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Working with tags</div>
+  </a>
+</div>
+
+ 
+  </div>
+</div>
+  
+
+<div class="nav-folder">
+  <div class="nav-folder-title" data-path="test" draggable="true">
+    <div class="nav-folder-collapse-indicator collapse-icon">
+      <svg viewBox="0 0 100 100" class="right-triangle" width="8" height="8">
+        <path
+          fill="currentColor"
+          stroke="currentColor"
+          d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+        ></path>
+      </svg>
+    </div>
+    <div class="nav-folder-title-content">Licenses & add on services</div>
+  </div>
+  <div class="nav-folder-children" style="">
+    <div style="width: 281px; height: 0.1px; margin-bottom: 0px"></div>
+     
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Licenses%20%26%20add-on%20services/Catalyst%20license/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Catalyst license</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Licenses%20%26%20add-on%20services/Commercial%20license/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Commercial license</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Licenses%20%26%20add-on%20services/Obsidian%20Publish/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Obsidian Publish</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Licenses%20%26%20add-on%20services/Obsidian%20Sync/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Obsidian Sync</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Licenses%20%26%20add-on%20services/Obsidian%20Unlimited/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Obsidian Unlimited</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Licenses%20%26%20add-on%20services/Refund%20policy/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Refund policy</div>
+  </a>
+</div>
+
+ 
+  </div>
+</div>
+  
+
+<div class="nav-folder">
+  <div class="nav-folder-title" data-path="test" draggable="true">
+    <div class="nav-folder-collapse-indicator collapse-icon">
+      <svg viewBox="0 0 100 100" class="right-triangle" width="8" height="8">
+        <path
+          fill="currentColor"
+          stroke="currentColor"
+          d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+        ></path>
+      </svg>
+    </div>
+    <div class="nav-folder-title-content">Obsidian</div>
+  </div>
+  <div class="nav-folder-children" style="">
+    <div style="width: 281px; height: 0.1px; margin-bottom: 0px"></div>
+     
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Obsidian/Android%20app/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Android app</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Obsidian/Credits/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Credits</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Obsidian/Index/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Index</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Obsidian/Mobile%20app%20beta/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Mobile app beta</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Obsidian/Obsidian%20Mobile/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Obsidian for Android</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Obsidian/Obsidian/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Obsidian</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Obsidian/Official%20website/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Official website</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Obsidian/iOS%20app/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">iOS app</div>
+  </a>
+</div>
+
+ 
+  </div>
+</div>
+  
+
+<div class="nav-folder">
+  <div class="nav-folder-title" data-path="test" draggable="true">
+    <div class="nav-folder-collapse-indicator collapse-icon">
+      <svg viewBox="0 0 100 100" class="right-triangle" width="8" height="8">
+        <path
+          fill="currentColor"
+          stroke="currentColor"
+          d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+        ></path>
+      </svg>
+    </div>
+    <div class="nav-folder-title-content">Plugins</div>
+  </div>
+  <div class="nav-folder-children" style="">
+    <div style="width: 281px; height: 0.1px; margin-bottom: 0px"></div>
+     
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Audio%20recorder/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Audio recorder</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Backlinks/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Backlinks</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Command%20palette/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Command palette</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Core%20plugins/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Core plugins</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Daily%20notes/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Daily notes</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/File%20explorer/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">File explorer</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/File%20recovery/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">File recovery</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Graph%20view/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Graph view</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Markdown%20format%20converter/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Markdown format converter</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Note%20composer/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Note composer</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Open%20in%20default%20app/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Open in default app</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Outgoing%20links/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Outgoing links</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Outline/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Outline</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Page%20preview/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Page preview</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Publish/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Publish</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Quick%20switcher/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Quick switcher</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Random%20note/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Random note</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Search/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Search</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Slides/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Slides</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Starred%20notes/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Starred notes</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Tag%20pane/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Tag pane</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Templates/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Templates</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Word%20count/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Word count</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Workspaces/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Workspaces</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../../Plugins/Zettelkasten%20prefixer/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Zettelkasten prefixer</div>
+  </a>
+</div>
+
+ 
+  </div>
+</div>
+  
+
+<div class="nav-folder">
+  <div class="nav-folder-title" data-path="test" draggable="true">
+    <div class="nav-folder-collapse-indicator collapse-icon">
+      <svg viewBox="0 0 100 100" class="right-triangle" width="8" height="8">
+        <path
+          fill="currentColor"
+          stroke="currentColor"
+          d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+        ></path>
+      </svg>
+    </div>
+    <div class="nav-folder-title-content">User interface</div>
+  </div>
+  <div class="nav-folder-children" style="">
+    <div style="width: 281px; height: 0.1px; margin-bottom: 0px"></div>
+     
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../../Vault%20switcher/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Vault switcher</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-folder">
+  <div class="nav-folder-title" data-path="test" draggable="true">
+    <div class="nav-folder-collapse-indicator collapse-icon">
+      <svg viewBox="0 0 100 100" class="right-triangle" width="8" height="8">
+        <path
+          fill="currentColor"
+          stroke="currentColor"
+          d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+        ></path>
+      </svg>
+    </div>
+    <div class="nav-folder-title-content">Workspace</div>
+  </div>
+  <div class="nav-folder-children" style="">
+    <div style="width: 281px; height: 0.1px; margin-bottom: 0px"></div>
+     
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../Ribbon/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Ribbon</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../Sidebar/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Sidebar</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../Status%20bar/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Status bar</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../Title%20bar/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Title bar</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../../Workspace/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Workspace</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-folder">
+  <div class="nav-folder-title" data-path="test" draggable="true">
+    <div class="nav-folder-collapse-indicator collapse-icon">
+      <svg viewBox="0 0 100 100" class="right-triangle" width="8" height="8">
+        <path
+          fill="currentColor"
+          stroke="currentColor"
+          d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+        ></path>
+      </svg>
+    </div>
+    <div class="nav-folder-title-content">Panes</div>
+  </div>
+  <div class="nav-folder-children" style="">
+    <div style="width: 281px; height: 0.1px; margin-bottom: 0px"></div>
+     
+
+<div class="nav-file">
+  <a
+    class="nav-file-title is-active"
+    href="./"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Linked pane</div>
+  </a>
+</div>
+
+  
+
+<div class="nav-file">
+  <a
+    class="nav-file-title "
+    href="../Pane%20layout/"
+    draggable="true"
+    style="text-decoration: none; color: inherit"
+  >
+    <div class="nav-file-title-content">Pane layout</div>
+  </a>
+</div>
+
+ 
+  </div>
+</div>
+ 
+  </div>
+</div>
+ 
+  </div>
+</div>
+ 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="workspace-split mod-vertical mod-root">
+            <hr class="workspace-leaf-resize-handle" />
+            <div class="workspace-leaf mod-active">
+              <hr class="workspace-leaf-resize-handle" />
+              <div
+                class="workspace-leaf-content"
+                data-type="markdown"
+                data-mode="preview"
+              >
+                <div class="view-header">
+                  <div class="view-header-icon" aria-label="Drag to rearrange">
+                    <svg
+                      viewBox="0 0 100 100"
+                      class="document"
+                      width="18"
+                      height="18"
+                    >
+                      <path
+                        fill="currentColor"
+                        stroke="currentColor"
+                        d="M14,4v92h72V29.2l-0.6-0.6l-24-24L60.8,4L14,4z M18,8h40v24h24v60H18L18,8z M62,10.9L79.1,28H62V10.9z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div class="view-header-title-container">
+                    <div
+                      class="view-header-title"
+                      contenteditable="true"
+                      spellcheck="false"
+                      tabindex="-1"
+                    >
+                      The Name Of Notes
+                    </div>
+                  </div>
+                </div>
+                <!-- start of article -->
+                <div class="view-content">
+                  <div
+                    class="markdown-source-view cm-s-obsidian mod-cm6 is-readable-line-width is-line-wrap is-live-preview"
+                    style="width: 0px; height: 0px; display: none"
+                  >
+                    <div class="cm-editor ͼ1 ͼ2 ͼ4 ͼr">
+                      <div
+                        aria-live="polite"
+                        style="position: absolute; top: -10000px"
+                      ></div>
+                      <div tabindex="-1" class="cm-scroller">
+                        <div class="cm-contentContainer">
+                          <div
+                            spellcheck="false"
+                            autocorrect="on"
+                            autocapitalize="on"
+                            translate="no"
+                            contenteditable="true"
+                            class="cm-content"
+                            style="tab-size: 4; padding-bottom: 0px"
+                            role="textbox"
+                            aria-multiline="true"
+                          >
+                            <div
+                              class="HyperMD-header HyperMD-header-1 cm-active cm-line"
+                            >
+                              <img
+                                class="cm-widgetBuffer"
+                                aria-hidden="true"
+                              /><span contenteditable="false"></span
+                              ><img
+                                class="cm-widgetBuffer"
+                                aria-hidden="true"
+                              /><span class="cm-header cm-header-1"
+                                >Hello World
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="cm-selectionLayer" aria-hidden="true"></div>
+                        <div
+                          class="cm-cursorLayer"
+                          aria-hidden="true"
+                          style="animation-duration: 1200ms"
+                        >
+                          <div
+                            class="cm-cursor cm-cursor-primary"
+                            style="left: 0px; top: 0px; height: 0px"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="document-search-container"
+                      style="display: none"
+                    >
+                      <div class="document-search">
+                        <input
+                          class="document-search-input"
+                          type="text"
+                          placeholder="Find"
+                        />
+                        <div class="document-search-buttons">
+                          <button
+                            class="document-search-button"
+                            aria-label="Shift + F3"
+                            aria-label-position="top"
+                          >
+                            Prev</button
+                          ><button
+                            class="document-search-button"
+                            aria-label="F3"
+                            aria-label-position="top"
+                          >
+                            Next</button
+                          ><button
+                            class="document-search-button"
+                            aria-label="Alt + Enter"
+                            aria-label-position="top"
+                          >
+                            All</button
+                          ><span
+                            class="document-search-close-button"
+                            aria-label="Exit search"
+                            aria-label-position="top"
+                          ></span>
+                        </div>
+                      </div>
+                      <div class="document-replace">
+                        <input
+                          class="document-replace-input"
+                          type="text"
+                          placeholder="Replace"
+                        />
+                        <div class="document-replace-buttons">
+                          <button
+                            class="document-search-button"
+                            aria-label="Enter"
+                            aria-label-position="top"
+                          >
+                            Replace</button
+                          ><button
+                            class="document-search-button"
+                            aria-label="Ctrl + Alt + Enter"
+                            aria-label-position="top"
+                          >
+                            Replace all
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="markdown-reading-view"
+                    style="width: 100%; height: 100%"
+                  >
+                    <div
+                      class="markdown-preview-view node-insert-event is-readable-line-width"
+                      tabindex="-1"
+                      style="tab-size: 4"
+                    >
+                      <div
+                        class="markdown-preview-sizer markdown-preview-section"
+                        style="padding-bottom: 460px; min-height: 62px"
+                      >
+                        <div
+                          class="markdown-preview-pusher"
+                          style="width: 1px; height: 0.1px; margin-bottom: 0px"
+                        ></div>
+
+                        <div>
+                          <!-- post content will be here -->
+
+                           <p>Panes can be linked together. This has two main effects:</p>
+<ul>
+<li>
+<p>By default, when opening a new [[Preview and edit modes|preview pane]] from an editing pane, the new pane is linked to the old one. This means that any changes you make in the editor will show up in the preview in real time. It also means that scrolling one will scroll the other.</p>
+</li>
+<li>
+<p>When a new [[Working with backlinks|Backlink Pane]] is created from a note, it will be linked to that note. This means that [[backlinks]] will always be shown for the note that is in that pane. This is useful if you want to reference a set of [[backlinks]] but let the regular backlink panel change with whatever other note you are working on.</p>
+</li>
+</ul>
+<p>Linked panes will be marked with a link icon. You can hover the link to see which pane it's linked to, or click the icon to release it, so that they are no longer linked. This will not close the previously-linked pane.</p> 
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="document-search-container"
+                      style="display: none"
+                    >
+                      <div class="document-search">
+                        <input
+                          class="document-search-input"
+                          type="text"
+                          placeholder="Find"
+                        />
+                        <div class="document-search-buttons">
+                          <button
+                            class="document-search-button"
+                            aria-label="Shift + F3"
+                            aria-label-position="top"
+                          >
+                            Prev</button
+                          ><button
+                            class="document-search-button"
+                            aria-label="Enter or F3"
+                            aria-label-position="top"
+                          >
+                            Next</button
+                          ><span
+                            class="document-search-close-button"
+                            aria-label="Exit search"
+                            aria-label-position="top"
+                          ></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="workspace-split mod-horizontal mod-right-split is-collapsed"
+            style="width: 0px; display: none"
+          >
+            <hr
+              class="workspace-leaf-resize-handle"
+              style="visibility: hidden"
+            />
+            <div class="workspace-sidedock-empty-state" style="display: none">
+              <p class="u-muted">
+                The sidebar is empty, try dragging a pane here.
+              </p>
+            </div>
+            <div class="workspace-tabs">
+              <hr class="workspace-leaf-resize-handle" />
+              <div class="workspace-tab-header-container">
+                <div class="workspace-tab-container-before is-before-active">
+                  <div class="workspace-tab-header-inner"></div>
+                </div>
+                <div class="workspace-tab-container-inner">
+                  <div
+                    class="workspace-tab-header is-active"
+                    aria-label="Backlinks for test"
+                    data-type="backlink"
+                  >
+                    <div class="workspace-tab-header-inner">
+                      <div class="workspace-tab-header-inner-icon">
+                        <svg
+                          viewBox="0 0 100 100"
+                          class="links-coming-in"
+                          width="17"
+                          height="17"
+                        >
+                          <path
+                            fill="currentColor"
+                            stroke="currentColor"
+                            d="M49.4,68.5c0,0.2,0,0.2,0.2,0.4l0,0l0.2,0.2l0.2,0.2l19.3,14.1c0.6,0.4,1.3,0.6,1.9,0.2c0.6-0.4,1-1,1-1.7v-7.3 c22.5,0.8,23.1,16.8,23.1,17.6c0,0.2,0,0.2,0,0.4s0,0.2,0,0.4s0.2,0.2,0.2,0.4s0.2,0.2,0.2,0.4c0,0,0.2,0.2,0.4,0.2 c0.2,0,0.2,0.2,0.4,0.2s0.2,0,0.4,0.2c0.2,0,0.2,0,0.4,0c0,0,0,0,0.2,0l0,0l0,0h0.2c0.2,0,0.4,0,0.6-0.2l0.2-0.2 c0.2,0,0.2-0.2,0.4-0.2l0.2-0.2c0-0.2,0.2-0.2,0.2-0.4s0-0.2,0-0.4s0-0.2,0-0.4c0-0.6,0.8-14.1-7.7-23.2c-4.6-5-11.2-7.7-19.3-8.1 v-7.5c0-0.8-0.4-1.4-1.2-1.7c-0.6-0.4-1.3-0.2-1.9,0.2L49.8,66.4l-0.2,0.2l-0.2,0.2l0,0c0,0.2,0,0.2,0,0.4 c-0.2,0.2-0.2,0.2-0.2,0.4s0,0.2,0,0.4s0,0.2,0,0.4C49.2,68.4,49.2,68.5,49.4,68.5L49.4,68.5z"
+                          ></path>
+                          <path
+                            fill="currentColor"
+                            stroke="currentColor"
+                            d="M76.4,11.7c3.7,3.8,5.6,8.9,5,14.3c-0.5,4-2.4,7.6-5.2,10.5c-2.6,2.6-6.7,6.7-9.2,9.2c-2,2-4.4,3.6-7.1,4.5 c-4.5,1.4-9,1-12.8-0.9l2.9-2.9c1.4,0.5,3,0.8,4.5,0.8c3.6,0,7-1.4,9.5-3.9l9.6-9.6c3.3-3.3,4.7-8.1,3.5-13 c-0.3-1.2-0.8-2.4-1.5-3.5C73,13,68.7,10.6,64,10.6c-3.6,0-7,1.4-9.5,3.9L45,24c-2.5,2.5-3.9,5.9-3.9,9.5c0,1.6,0.3,3.1,0.8,4.5 l-3,3c-1.1-2.3-1.7-4.8-1.7-7.5c0-0.7,0-1.4,0.1-2.1c0.5-3.8,2.2-7.4,5-10.2l9.4-9.4C54.5,9,58.2,7,62.1,6.6 C67.5,6.1,72.6,7.9,76.4,11.7L76.4,11.7z M54.4,34.7c0.3,0.7,0.1,1.6-0.4,2.1L30.9,59.9c-0.5,0.5-1.2,0.7-1.9,0.5s-1.2-0.7-1.4-1.4 s0-1.4,0.5-1.9L51.2,34c0.3-0.4,0.8-0.6,1.3-0.6C53.4,33.5,54.1,34,54.4,34.7z M35.1,44.9l-2.9,2.9c-1.4-0.5-3-0.8-4.5-0.8 c-3.6,0-7,1.4-9.5,3.9l-9.6,9.6c-3.3,3.4-4.7,8.1-3.5,13c0.3,1.2,0.8,2.4,1.5,3.5c2.6,4.2,6.9,6.6,11.6,6.6c3.6,0,7-1.4,9.5-3.9 l9.6-9.6c2.5-2.5,3.9-5.9,3.9-9.5c0-1.6-0.3-3.1-0.8-4.5l2.9-2.9c1.1,2.3,1.7,4.8,1.7,7.5c0,3-0.8,5.9-2.2,8.5 c-0.8,1-1.5,1.9-2.1,2.9c-0.3,0.3-0.5,0.6-0.8,0.8l-9.4,9.4c-2.9,2.9-6.6,4.8-10.6,5.2c-6.2,0.6-12-1.9-15.8-6.9 c-2.4-3.2-3.6-7.2-3.4-11.2c0-0.1,0-0.2,0-0.3c0.3-4.2,2-8.1,5-11.1l9.4-9.4c2-2,4.4-3.6,7.1-4.5C26.8,42.6,31.3,43,35.1,44.9 L35.1,44.9z"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="workspace-tab-container-after is-after-active">
+                  <div class="workspace-tab-header-inner"></div>
+                </div>
+              </div>
+              <div class="workspace-leaf">
+                <hr class="workspace-leaf-resize-handle" />
+                <div class="workspace-leaf-content" data-type="backlink">
+                  <div class="view-header">
+                    <div
+                      class="view-header-icon"
+                      aria-label="Drag to rearrange"
+                    >
+                      <svg
+                        viewBox="0 0 100 100"
+                        class="links-coming-in"
+                        width="18"
+                        height="18"
+                      >
+                        <path
+                          fill="currentColor"
+                          stroke="currentColor"
+                          d="M49.4,68.5c0,0.2,0,0.2,0.2,0.4l0,0l0.2,0.2l0.2,0.2l19.3,14.1c0.6,0.4,1.3,0.6,1.9,0.2c0.6-0.4,1-1,1-1.7v-7.3 c22.5,0.8,23.1,16.8,23.1,17.6c0,0.2,0,0.2,0,0.4s0,0.2,0,0.4s0.2,0.2,0.2,0.4s0.2,0.2,0.2,0.4c0,0,0.2,0.2,0.4,0.2 c0.2,0,0.2,0.2,0.4,0.2s0.2,0,0.4,0.2c0.2,0,0.2,0,0.4,0c0,0,0,0,0.2,0l0,0l0,0h0.2c0.2,0,0.4,0,0.6-0.2l0.2-0.2 c0.2,0,0.2-0.2,0.4-0.2l0.2-0.2c0-0.2,0.2-0.2,0.2-0.4s0-0.2,0-0.4s0-0.2,0-0.4c0-0.6,0.8-14.1-7.7-23.2c-4.6-5-11.2-7.7-19.3-8.1 v-7.5c0-0.8-0.4-1.4-1.2-1.7c-0.6-0.4-1.3-0.2-1.9,0.2L49.8,66.4l-0.2,0.2l-0.2,0.2l0,0c0,0.2,0,0.2,0,0.4 c-0.2,0.2-0.2,0.2-0.2,0.4s0,0.2,0,0.4s0,0.2,0,0.4C49.2,68.4,49.2,68.5,49.4,68.5L49.4,68.5z"
+                        ></path>
+                        <path
+                          fill="currentColor"
+                          stroke="currentColor"
+                          d="M76.4,11.7c3.7,3.8,5.6,8.9,5,14.3c-0.5,4-2.4,7.6-5.2,10.5c-2.6,2.6-6.7,6.7-9.2,9.2c-2,2-4.4,3.6-7.1,4.5 c-4.5,1.4-9,1-12.8-0.9l2.9-2.9c1.4,0.5,3,0.8,4.5,0.8c3.6,0,7-1.4,9.5-3.9l9.6-9.6c3.3-3.3,4.7-8.1,3.5-13 c-0.3-1.2-0.8-2.4-1.5-3.5C73,13,68.7,10.6,64,10.6c-3.6,0-7,1.4-9.5,3.9L45,24c-2.5,2.5-3.9,5.9-3.9,9.5c0,1.6,0.3,3.1,0.8,4.5 l-3,3c-1.1-2.3-1.7-4.8-1.7-7.5c0-0.7,0-1.4,0.1-2.1c0.5-3.8,2.2-7.4,5-10.2l9.4-9.4C54.5,9,58.2,7,62.1,6.6 C67.5,6.1,72.6,7.9,76.4,11.7L76.4,11.7z M54.4,34.7c0.3,0.7,0.1,1.6-0.4,2.1L30.9,59.9c-0.5,0.5-1.2,0.7-1.9,0.5s-1.2-0.7-1.4-1.4 s0-1.4,0.5-1.9L51.2,34c0.3-0.4,0.8-0.6,1.3-0.6C53.4,33.5,54.1,34,54.4,34.7z M35.1,44.9l-2.9,2.9c-1.4-0.5-3-0.8-4.5-0.8 c-3.6,0-7,1.4-9.5,3.9l-9.6,9.6c-3.3,3.4-4.7,8.1-3.5,13c0.3,1.2,0.8,2.4,1.5,3.5c2.6,4.2,6.9,6.6,11.6,6.6c3.6,0,7-1.4,9.5-3.9 l9.6-9.6c2.5-2.5,3.9-5.9,3.9-9.5c0-1.6-0.3-3.1-0.8-4.5l2.9-2.9c1.1,2.3,1.7,4.8,1.7,7.5c0,3-0.8,5.9-2.2,8.5 c-0.8,1-1.5,1.9-2.1,2.9c-0.3,0.3-0.5,0.6-0.8,0.8l-9.4,9.4c-2.9,2.9-6.6,4.8-10.6,5.2c-6.2,0.6-12-1.9-15.8-6.9 c-2.4-3.2-3.6-7.2-3.4-11.2c0-0.1,0-0.2,0-0.3c0.3-4.2,2-8.1,5-11.1l9.4-9.4c2-2,4.4-3.6,7.1-4.5C26.8,42.6,31.3,43,35.1,44.9 L35.1,44.9z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div class="view-header-title-container">
+                      <div class="view-header-title">Backlinks for test</div>
+                    </div>
+                    <div class="view-actions">
+                      <a
+                        class="view-action"
+                        aria-label="Unlink pane"
+                        style="display: none"
+                        ><svg
+                          viewBox="0 0 100 100"
+                          class="link"
+                          width="18"
+                          height="18"
+                        >
+                          <path
+                            fill="currentColor"
+                            stroke="currentColor"
+                            d="M74,8c-4.8,0-9.3,1.9-12.7,5.3l-10,10c-2.9,2.9-4.7,6.6-5.1,10.6C46,34.6,46,35.3,46,36c0,2.7,0.6,5.4,1.8,7.8l3.1-3.1 C50.3,39.2,50,37.6,50,36c0-3.7,1.5-7.3,4.1-9.9l10-10c2.6-2.6,6.2-4.1,9.9-4.1s7.3,1.5,9.9,4.1c2.6,2.6,4.1,6.2,4.1,9.9 s-1.5,7.3-4.1,9.9l-10,10C71.3,48.5,67.7,50,64,50c-1.6,0-3.2-0.3-4.7-0.8l-3.1,3.1c2.4,1.1,5,1.8,7.8,1.8c4.8,0,9.3-1.9,12.7-5.3 l10-10C90.1,35.3,92,30.8,92,26s-1.9-9.3-5.3-12.7C83.3,9.9,78.8,8,74,8L74,8z M62,36c-0.5,0-1,0.2-1.4,0.6l-24,24 c-0.5,0.5-0.7,1.2-0.6,1.9c0.2,0.7,0.7,1.2,1.4,1.4c0.7,0.2,1.4,0,1.9-0.6l24-24c0.6-0.6,0.8-1.5,0.4-2.2C63.5,36.4,62.8,36,62,36 z M36,46c-4.8,0-9.3,1.9-12.7,5.3l-10,10c-3.1,3.1-5,7.2-5.2,11.6c0,0.4,0,0.8,0,1.2c0,4.8,1.9,9.3,5.3,12.7 C16.7,90.1,21.2,92,26,92s9.3-1.9,12.7-5.3l10-10C52.1,73.3,54,68.8,54,64c0-2.7-0.6-5.4-1.8-7.8l-3.1,3.1 c0.5,1.5,0.8,3.1,0.8,4.7c0,3.7-1.5,7.3-4.1,9.9l-10,10C33.3,86.5,29.7,88,26,88s-7.3-1.5-9.9-4.1S12,77.7,12,74 c0-3.7,1.5-7.3,4.1-9.9l10-10c2.6-2.6,6.2-4.1,9.9-4.1c1.6,0,3.2,0.3,4.7,0.8l3.1-3.1C41.4,46.6,38.7,46,36,46L36,46z"
+                          ></path></svg></a
+                      ><a
+                        class="view-action mod-pin-leaf"
+                        aria-label="Pin"
+                        style="display: none"
+                        ><svg
+                          viewBox="0 0 100 100"
+                          class="pin"
+                          width="18"
+                          height="18"
+                        >
+                          <path
+                            fill="currentColor"
+                            stroke="currentColor"
+                            d="M71.9,0c-0.4,0-0.7,0.1-1.1,0.2c-1.5,0.4-2.8,1.4-3.9,2.7c0,0,0,0-0.1,0.1L50.1,26.4c-10.3-2.4-21.5,0.3-29.4,8.3 c-0.8,0.8-0.8,2,0,2.8l14.9,14.8L0.4,96.7c-0.6,0.8-0.6,1.9,0.1,2.7c0.7,0.7,1.9,0.8,2.7,0.1l44.4-35.1l14.9,14.8 c0.8,0.8,2,0.8,2.8,0c8.1-8.1,10.7-19.5,8.2-29.9l23.4-15.9c0,0,0,0,0.1-0.1c1.4-1,2.3-2.3,2.7-3.7c0.4-1.5,0.2-3.3-1-4.6 L75.3,1.3c-0.6-0.6-1.4-1-2.2-1.1C72.7,0,72.3,0,71.9,0z M72.3,4c0.1,0,0.1,0,0.1,0.1l23.6,23.8c0.1,0.1,0.1,0.1,0,0.6 c-0.1,0.4-0.6,1.1-1.3,1.7l-0.1,0.1L70.3,46.7c0,0,0,0-0.1,0.1l-0.1,0.1c-0.7,0.5-0.9,1.4-0.7,2.2c2.6,8.8,0.6,18.4-5.7,25.7 L25.1,36.3c7.2-6.2,16.8-8.3,25.4-5.8c0.8,0.2,1.7-0.1,2.2-0.8L70,5.4l0.1-0.1c0.6-0.7,1.3-1.1,1.7-1.2C72,4,72.2,4,72.3,4L72.3,4 z M38.4,55.2l6.4,6.4L14.3,85.7L38.4,55.2z"
+                          ></path></svg></a
+                      ><a class="view-action mod-close-leaf" aria-label="Close"
+                        ><svg
+                          viewBox="0 0 100 100"
+                          class="cross"
+                          width="16"
+                          height="16"
+                        >
+                          <path
+                            fill="currentColor"
+                            stroke="currentColor"
+                            d="M15.4,12.6l-2.9,2.9L47.1,50L12.6,84.6l2.9,2.9L50,52.9l34.6,34.6l2.9-2.9L52.9,50l34.6-34.6l-2.9-2.9L50,47.1L15.4,12.6z "
+                          ></path></svg></a
+                      ><a class="view-action" aria-label="More options"
+                        ><svg
+                          viewBox="0 0 100 100"
+                          class="vertical-three-dots"
+                          width="18"
+                          height="18"
+                        >
+                          <path
+                            fill="currentColor"
+                            stroke="currentColor"
+                            d="M50,6c-6.6,0-12,5.4-12,12s5.4,12,12,12s12-5.4,12-12S56.6,6,50,6z M50,10c4.4,0,8,3.6,8,8s-3.6,8-8,8s-8-3.6-8-8 S45.6,10,50,10z M50,38c-6.6,0-12,5.4-12,12s5.4,12,12,12s12-5.4,12-12S56.6,38,50,38z M50,42c4.4,0,8,3.6,8,8s-3.6,8-8,8 s-8-3.6-8-8S45.6,42,50,42z M50,70c-6.6,0-12,5.4-12,12c0,6.6,5.4,12,12,12s12-5.4,12-12C62,75.4,56.6,70,50,70z M50,74 c4.4,0,8,3.6,8,8c0,4.4-3.6,8-8,8s-8-3.6-8-8C42,77.6,45.6,74,50,74z"
+                          ></path></svg
+                      ></a>
+                    </div>
+                  </div>
+                  <div class="view-content">
+                    <div class="nav-header">
+                      <div class="nav-buttons-container">
+                        <div
+                          class="nav-action-button"
+                          aria-label="Collapse results"
+                        >
+                          <svg
+                            viewBox="0 0 100 100"
+                            class="bullet-list"
+                            width="20"
+                            height="20"
+                          >
+                            <path
+                              fill="currentColor"
+                              stroke="currentColor"
+                              d="M16.4,16.4c-3.5,0-6.4,2.9-6.4,6.4s2.9,6.4,6.4,6.4s6.4-2.9,6.4-6.4S19.9,16.4,16.4,16.4z M16.4,19.6 c1.8,0,3.2,1.4,3.2,3.2c0,1.8-1.4,3.2-3.2,3.2s-3.2-1.4-3.2-3.2C13.2,21,14.6,19.6,16.4,19.6z M29.2,21.2v3.2H90v-3.2H29.2z M16.4,43.6c-3.5,0-6.4,2.9-6.4,6.4s2.9,6.4,6.4,6.4s6.4-2.9,6.4-6.4S19.9,43.6,16.4,43.6z M16.4,46.8c1.8,0,3.2,1.4,3.2,3.2 s-1.4,3.2-3.2,3.2s-3.2-1.4-3.2-3.2S14.6,46.8,16.4,46.8z M29.2,48.4v3.2H90v-3.2H29.2z M16.4,70.8c-3.5,0-6.4,2.9-6.4,6.4 c0,3.5,2.9,6.4,6.4,6.4s6.4-2.9,6.4-6.4C22.8,73.7,19.9,70.8,16.4,70.8z M16.4,74c1.8,0,3.2,1.4,3.2,3.2c0,1.8-1.4,3.2-3.2,3.2 s-3.2-1.4-3.2-3.2C13.2,75.4,14.6,74,16.4,74z M29.2,75.6v3.2H90v-3.2H29.2z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <div
+                          class="nav-action-button"
+                          aria-label="Show more context"
+                        >
+                          <svg
+                            viewBox="0 0 100 100"
+                            class="expand-vertically"
+                            width="20"
+                            height="20"
+                          >
+                            <path
+                              fill="currentColor"
+                              stroke="currentColor"
+                              d="M92,92H8v-4h84V92z M50,86.8L34.6,71.4l2.8-2.8L48,79.2V20.8L37.4,31.4l-2.8-2.8L50,13.2l15.4,15.4l-2.8,2.8L52,20.8v58.3 l10.6-10.6l2.8,2.8L50,86.8z M92,12H8V8h84V12z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <div
+                          class="nav-action-button"
+                          aria-label="Change sort order"
+                        >
+                          <svg
+                            viewBox="0 0 100 100"
+                            class="up-and-down-arrows"
+                            width="20"
+                            height="20"
+                          >
+                            <path
+                              fill="currentColor"
+                              stroke="currentColor"
+                              d="M25.8,5.9c-0.1,0-0.2,0-0.3,0.1c-0.1,0-0.1,0-0.2,0.1c-0.1,0-0.1,0-0.2,0.1c-0.1,0.1-0.3,0.2-0.4,0.3 c-0.1,0.1-0.2,0.1-0.3,0.2c-0.1,0.1-0.2,0.2-0.3,0.3L8.6,22.6c-0.8,0.8-0.8,2.1,0,2.9c0.8,0.8,2.1,0.8,2.9,0L24,12.9V76 c0,0.7,0.4,1.4,1,1.8c0.6,0.4,1.4,0.4,2,0c0.6-0.4,1-1,1-1.8V12.9l12.6,12.6c0.8,0.8,2.1,0.8,2.9,0c0.8-0.8,0.8-2.1,0-2.9 L27.7,6.9c-0.1-0.2-0.3-0.4-0.6-0.6c-0.2-0.2-0.5-0.3-0.8-0.3C26.2,6,26,5.9,25.8,5.9L25.8,5.9z M74,6c-1.1,0-2,0.9-2,2s0.9,2,2,2 s2-0.9,2-2S75.1,6,74,6z M74,14c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S75.1,14,74,14z M73.8,21.9c-0.1,0-0.2,0-0.3,0.1 c-0.9,0.2-1.6,1-1.6,2v63.1L59.4,74.6c-0.5-0.5-1.2-0.7-1.9-0.6c-0.8,0.1-1.4,0.7-1.6,1.4c-0.2,0.7,0,1.5,0.6,2l15.8,15.7 c0,0.1,0.1,0.1,0.1,0.2l0.1,0.1c0,0,0.1,0.1,0.1,0.1c0,0,0,0,0.1,0c0.1,0.1,0.3,0.2,0.4,0.3c0,0,0,0,0.1,0c0,0,0.1,0,0.1,0.1 c0,0,0,0,0.1,0c0.1,0,0.1,0,0.2,0.1c0.2,0,0.4,0,0.6,0c0,0,0.1,0,0.1,0c0.2,0,0.3-0.1,0.5-0.2c0.3-0.1,0.5-0.3,0.7-0.6l15.9-15.8 c0.8-0.8,0.8-2.1,0-2.9c-0.8-0.8-2.1-0.8-2.9,0L76,87.1V24c0-0.6-0.2-1.1-0.6-1.5C75,22.1,74.4,21.9,73.8,21.9L73.8,21.9z M26,82 c-1.1,0-2,0.9-2,2c0,1.1,0.9,2,2,2c1.1,0,2-0.9,2-2C28,82.9,27.1,82,26,82z M26,90c-1.1,0-2,0.9-2,2s0.9,2,2,2c1.1,0,2-0.9,2-2 C28,90.9,27.1,90,26,90z"
+                            ></path>
+                          </svg>
+                        </div>
+                        <div
+                          class="nav-action-button"
+                          aria-label="Show search filter"
+                        >
+                          <svg
+                            viewBox="0 0 100 100"
+                            class="magnifying-glass"
+                            width="20"
+                            height="20"
+                          >
+                            <path
+                              fill="currentColor"
+                              stroke="currentColor"
+                              d="M42,6C23.2,6,8,21.2,8,40s15.2,34,34,34c7.4,0,14.3-2.4,19.9-6.4l26.3,26.3l5.6-5.6l-26-26.1c5.1-6,8.2-13.7,8.2-22.1 C76,21.2,60.8,6,42,6z M42,10c16.6,0,30,13.4,30,30S58.6,70,42,70S12,56.6,12,40S25.4,10,42,10z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="search-input-container" style="display: none">
+                      <input
+                        type="text"
+                        spellcheck="false"
+                        placeholder="Type to start search..."
+                      />
+                      <div
+                        class="search-input-clear-button"
+                        aria-label="Clear search"
+                        style="display: none"
+                      ></div>
+                    </div>
+                    <div
+                      class="backlink-pane node-insert-event"
+                      style="position: relative"
+                    >
+                      <div
+                        class="tree-item-self is-clickable"
+                        aria-label="Click to collapse"
+                        aria-label-position="left"
+                      >
+                        <span class="tree-item-icon collapse-icon"
+                          ><svg
+                            viewBox="0 0 100 100"
+                            class="right-triangle"
+                            width="8"
+                            height="8"
+                          >
+                            <path
+                              fill="currentColor"
+                              stroke="currentColor"
+                              d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+                            ></path></svg
+                        ></span>
+                        <div class="tree-item-inner">Linked mentions</div>
+                        <div class="tree-item-flair-outer">
+                          <span class="tree-item-flair">0</span>
+                        </div>
+                      </div>
+                      <div class="search-result-container">
+                        <div
+                          class="search-results-children"
+                          style="min-height: 0px"
+                        >
+                          <div
+                            style="
+                              width: 1px;
+                              height: 0.1px;
+                              margin-bottom: 0px;
+                            "
+                          ></div>
+                        </div>
+                      </div>
+                      <div
+                        class="tree-item-self is-clickable is-collapsed"
+                        aria-label="Click to expand"
+                        aria-label-position="left"
+                      >
+                        <span class="tree-item-icon collapse-icon"
+                          ><svg
+                            viewBox="0 0 100 100"
+                            class="right-triangle"
+                            width="8"
+                            height="8"
+                          >
+                            <path
+                              fill="currentColor"
+                              stroke="currentColor"
+                              d="M94.9,20.8c-1.4-2.5-4.1-4.1-7.1-4.1H12.2c-3,0-5.7,1.6-7.1,4.1c-1.3,2.4-1.2,5.2,0.2,7.6L43.1,88c1.5,2.3,4,3.7,6.9,3.7 s5.4-1.4,6.9-3.7l37.8-59.6C96.1,26,96.2,23.2,94.9,20.8L94.9,20.8z"
+                            ></path></svg
+                        ></span>
+                        <div class="tree-item-inner">Unlinked mentions</div>
+                        <div class="tree-item-flair-outer">
+                          <span
+                            class="tree-item-flair"
+                            style="display: none"
+                          ></span>
+                        </div>
+                      </div>
+                      <div
+                        class="search-result-container"
+                        style="display: none"
+                      >
+                        <div
+                          class="search-results-children"
+                          style="min-height: 0px"
+                        >
+                          <div
+                            style="
+                              width: 1px;
+                              height: 0.1px;
+                              margin-bottom: 0px;
+                            "
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

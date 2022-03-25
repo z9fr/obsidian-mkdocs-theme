@@ -10,14 +10,16 @@
   font-style: normal;
   font-weight: 200;
   font-display: swap;
-  src: url(https://github.com/z9fr/obsidian-mkdocs-theme/raw/master/basic_theme/css/fonts/367685b2ca6303dc3853.woff2) format("woff2");
+  src: url(https://github.com/z9fr/obsidian-mkdocs-theme/raw/master/basic_theme/css/fonts/367685b2ca6303dc3853.woff2)
+    format("woff2");
 }
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url(https://github.com/z9fr/obsidian-mkdocs-theme/raw/master/basic_theme/css/fonts/746a677fc34469759ede.woff2) format("woff2");
+  src: url(https://github.com/z9fr/obsidian-mkdocs-theme/raw/master/basic_theme/css/fonts/746a677fc34469759ede.woff2)
+    format("woff2");
 }
 @font-face {
   font-family: "Inter";
